@@ -11,7 +11,7 @@ block main
           +filter-status(filterStatus)
         .col-6
           +search(keyword)
-          
+    .card-
   .card.mb-3
     .card-header Danh Sách Sản Phẩm
       .card-body 
@@ -46,3 +46,14 @@ block main
                 td 
                   button(class="btn btn-warning btn-sm me-2") Sửa
                   button(class="btn btn-danger btn-sm ms-1") Xóa
+  nav 
+    ul(class="pagination")
+      if (pagination.currentPage > 1)
+        li(class="page-item")
+          button(class="page-link" button-pagination=pagination.currentPage-1) Trước
+      - for (var i = 1; i <= pagination.totalPage; i++) 
+        li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
+          button(class="page-link" button-pagination=i) #{i}
+      if (pagination.currentPage < pagination.totalPage)
+        li(class="page-item")
+          button(class="page-link" button-pagination=pagination.currentPage+1) Kế tiếp

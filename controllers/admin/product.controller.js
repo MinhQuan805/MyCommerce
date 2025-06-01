@@ -17,20 +17,31 @@ module.exports.index = async (req, res) => {
     }
 
     // Tìm kiếm
-    const objectSearch = searchHelper(req.query);
+    const searchObject = searchHelper(req.query);
 
-    if (objectSearch.regex) {
-        find.title = objectSearch.regex;
+    if (searchObject.regex) {
+        find.title = searchObject.regex;
     }
 
-    const products = await Product.find(find);
-    
+    // Phân trang
+    let paginationObject = {
+        currentPage: 1,
+        limitItem: 4,
+    };
+    if (req.query.page) {
+        paginationObject.currentPage = parseInt(req.query.page);
+    }
+    paginationObject.skip = (paginationObject.currentPage - 1) * paginationObject.limitItem;
+    const countProducts = await Product.countDocuments(find);
+    paginationObject.totalPage = Math.ceil(countProducts/paginationObject.limitItem);
 
-    //console.log(products);
+    // Chạy và truyền dữ liệu
+    const products = await Product.find(find).limit(paginationObject.limitItem).skip(paginationObject.skip);
     res.render("admin/pages/products/index", 
         {pageTitle: "Danh Sách Sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: objectSearch.keyword
+        keyword: searchObject.keyword,
+        pagination: paginationObject
     });
 }
