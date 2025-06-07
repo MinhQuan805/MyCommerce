@@ -3,8 +3,10 @@ const Product = require("../../models/product.model");
 
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
+const paginationHelper = require("../../helpers/pagination");
+
+// [GET] /admin/products
 module.exports.index = async (req, res) => {
-    
     // Nút tìm kiếm trạng thái
     const filterStatus = filterStatusHelper(req.query);
 
@@ -28,13 +30,11 @@ module.exports.index = async (req, res) => {
         currentPage: 1,
         limitItem: 4,
     };
-    if (req.query.page) {
-        paginationObject.currentPage = parseInt(req.query.page);
-    }
-    paginationObject.skip = (paginationObject.currentPage - 1) * paginationObject.limitItem;
     const countProducts = await Product.countDocuments(find);
-    paginationObject.totalPage = Math.ceil(countProducts/paginationObject.limitItem);
+    paginationObject = paginationHelper(paginationObject, req.query, countProducts);
 
+    // Xóa sản phẩm
+    
     // Chạy và truyền dữ liệu
     const products = await Product.find(find).limit(paginationObject.limitItem).skip(paginationObject.skip);
     res.render("admin/pages/products/index", 
@@ -45,3 +45,5 @@ module.exports.index = async (req, res) => {
         pagination: paginationObject
     });
 }
+
+// [GET] /admin/products
