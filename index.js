@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+var methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 require("dotenv").config();
 const port = process.env.PORT;
 
@@ -13,8 +15,12 @@ app.set("view engine", "pug");
 
 app.use(express.static("public"));
 
+app.use(methodOverride('_method'));
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
 
 //Routes
 route(app);

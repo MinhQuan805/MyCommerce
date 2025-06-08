@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/form-change-status.pug
 block main
   h1 Danh sách sản phẩm
   .card.mb-3
@@ -15,10 +16,13 @@ block main
     .card-
   .card.mb-3
     .card-header Danh Sách Sản Phẩm
-      .card-body 
-        table.table.table-hover.table-sm
+      .card-body
+        +form-change-status(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+        table(class="table table-hover table-sm" checkbox-multi )
           thead
             tr
+              th
+                input(type="checkbox" name="checkAll")
               th STT
               th Hình ảnh
               th Tiêu đề
@@ -29,6 +33,12 @@ block main
           tbody
             each item, index in products
               tr
+                td
+                  input(
+                    type="checkbox"
+                    name="id"
+                    value=item.id
+                  )
                 td #{index + 1}
                 td
                   img(
@@ -54,14 +64,22 @@ block main
                       class="badge text-bg-danger") Dừng Hoạt động
                 td 
                   button(class="btn btn-warning btn-sm me-2") Sửa
-                  button(class="btn btn-danger btn-sm ms-1") Xóa
+                  button(class="btn btn-danger btn-sm ms-1" data-id=item.id button-delete-item) Xóa
   +pagination(pagination)
   
   form(
     action="", 
-    method="GET"
+    method="POST"
     id="form-change-status"
     data-path=`${prefixAdmin}/products/change-status`
   )
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete"
+    data-path=`${prefixAdmin}/products/form-delete`
+  )
+
   script(src="/admin/js/product.js")
 
