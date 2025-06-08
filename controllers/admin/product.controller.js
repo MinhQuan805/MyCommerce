@@ -86,6 +86,7 @@ module.exports.deleteItem = async (req, res) => {
     // await Product.deleteOne({ _id: id });
 
     // Xóa mềm (Xóa vẫn còn lưu trữ trong database)
+    // deleteAt dùng để biết được ai xóa khi nào
     await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
 
     // Quay về trang trước
