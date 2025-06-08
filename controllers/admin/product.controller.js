@@ -81,6 +81,7 @@ module.exports.changeMulti = async (req, res) => {
 // [PATCH] /admin/products/form-delete
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
+    
     // Xóa cứng
     // await Product.deleteOne({ _id: id });
 
