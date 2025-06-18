@@ -1,3 +1,4 @@
+// Bộ lọc trạng thái hoạt động
 module.exports = (query) => {
     let filterStatus = [
         {

@@ -90,22 +90,35 @@ if (checkboxMulti) {
 }
 // End CheckBox All
 
-// Form Check
+// Form Change Multi Check
 const FormChange = document.querySelector("[form-change-multi]");
 if (FormChange) {
     FormChange.addEventListener("submit", (e) => {
         e.preventDefault();
         const boxIdChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+        const typeChange = e.target.elements.type.value;
+        if (typeChange == "delete-all") {
+                const isConfirm = confirm("Bạn có chắc muốn xóa sản phầm này không?");
+                if (!isConfirm) {
+                    return;
+                }
+        }
         if (boxIdChecked.length > 0) {
             let ids = [];
-            const inputIds = FormChange.querySelector("input[name='ids']");
-            boxIdChecked.forEach((box) => {
-                if (box.checked) {
-                    ids.push(box.value);
-                }
-            });
-            inputIds.value = ids.join(", ");
-            FormChange.submit();
+                const inputIds = FormChange.querySelector("input[name='ids']");
+                boxIdChecked.forEach((box) => {
+                    const id = box.value;
+                    if (typeChange == "change-position") {
+                        const position = box.closest("tr") //Closest dùng để tìm phần tử cha gần nhất với yêu cầu
+                                            .querySelector("input[name='position']").value;
+                        ids.push(`${id}-${position}`) // Truyền vào controller id và và vị trí thay đổi
+                    }
+                    else {
+                        ids.push(id); // Truyền vào controller id để xóa hoặc cập nhật
+                    }
+                });
+                inputIds.value = ids.join(", ");
+                FormChange.submit();
         }
         else {
             alert("Vui lòng chọn ít nhất một ô!");

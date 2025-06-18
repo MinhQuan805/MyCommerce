@@ -1,3 +1,5 @@
+// Thanh công cụ tìm kiếm
+
 module.exports = (query) => {
     let objectSearch = {
         keyword: "",

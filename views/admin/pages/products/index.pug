@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
-include ../../mixins/form-change-status.pug
+include ../../mixins/form-change-multi.pug
 block main
   h1 Danh sách sản phẩm
   .card.mb-3
@@ -17,7 +17,8 @@ block main
   .card.mb-3
     .card-header Danh Sách Sản Phẩm
       .card-body
-        +form-change-status(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+        //- Thay đổi trạng thái nhiều sản phầm
+        +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
         table(class="table table-hover table-sm" checkbox-multi )
           thead
             tr
@@ -27,6 +28,7 @@ block main
               th Hình ảnh
               th Tiêu đề
               th Giá
+              th Vị trí
               th Trạng thái
               th Hành động
 
@@ -49,6 +51,8 @@ block main
                   )
                 td #{item.title} 
                 td #{item.price}$
+                td
+                  input(type="number" class="form-control" style="width: 60px" name="position" value=item.position)
                 td
                   if (item.status == "active")
                     a(href="javascript:;"

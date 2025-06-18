@@ -36,7 +36,9 @@ module.exports.index = async (req, res) => {
     // Xóa sản phẩm
     
     // Chạy và truyền dữ liệu
-    const products = await Product.find(find).limit(paginationObject.limitItem).skip(paginationObject.skip);
+    const products = await Product.find(find)
+                                .sort({position: "desc"}) // Sort theo vị trí
+                                .limit(paginationObject.limitItem).skip(paginationObject.skip);
     res.render("admin/pages/products/index", 
         {pageTitle: "Danh Sách Sản phẩm",
         products: products,
@@ -70,6 +72,15 @@ module.exports.changeMulti = async (req, res) => {
         case "inactive":
             await Product.updateMany({ _id: { $in: ids }}, { status: "inactive"});
             break;
+        case "delete-all":
+            await Product.updateMany({ _id: { $in: ids }}, { deleted: true, deletedAt: new Date() });
+            break;
+        case "change-position":
+            for (const item of ids) {
+                let [id, pos] = item.split('-');
+                pos = parseInt(pos);
+                await Product.updateMany({ _id: id }, { position:  pos})
+            }
         default:
             break;
     }
