@@ -1,6 +1,6 @@
 extends ../../layouts/default.pug
 block main
-  form(action=`/${prefixAdmin}/products/create`, id="form-create-product", method="POST")
+  form(action=`${prefixAdmin}/products/create`, id="form-create-product", method="POST")
     div(class="form-group mt-2")
       label(for="title") Tiêu đề
       input(class="form-control" type="text", id="title", name="title", required)

@@ -9,9 +9,12 @@ const productSchema = new mongoose.Schema({
     thumbnail: String,
     status: String,
     position: Number,
-    deleted: Boolean,
+    deleted: {
+        type: Boolean,
+        default: false,
+    },
     deletedAt: Date,
-});
+}, {timestamps: true});
 
 // mongoose.model(modelName, schema, collectionName);
 // Nếu không có tham số 3 Mongoose sẽ tự động suy ra tên collection 

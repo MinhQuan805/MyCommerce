@@ -12,4 +12,6 @@ router.delete("/form-delete/:id", controller.deleteItem);
 
 router.get("/create", controller.create);
 
+router.post("/create", controller.createProduct);
+
 module.exports = router;
