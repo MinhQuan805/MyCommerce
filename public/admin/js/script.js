@@ -105,20 +105,20 @@ if (FormChange) {
         }
         if (boxIdChecked.length > 0) {
             let ids = [];
-                const inputIds = FormChange.querySelector("input[name='ids']");
-                boxIdChecked.forEach((box) => {
-                    const id = box.value;
-                    if (typeChange == "change-position") {
-                        const position = box.closest("tr") //Closest dùng để tìm phần tử cha gần nhất với yêu cầu
-                                            .querySelector("input[name='position']").value;
-                        ids.push(`${id}-${position}`) // Truyền vào controller id và và vị trí thay đổi
-                    }
-                    else {
-                        ids.push(id); // Truyền vào controller id để xóa hoặc cập nhật
-                    }
-                });
-                inputIds.value = ids.join(", ");
-                FormChange.submit();
+            const inputIds = FormChange.querySelector("input[name='ids']");
+            boxIdChecked.forEach((box) => {
+                const id = box.value;
+                if (typeChange == "change-position") {
+                    const position = box.closest("tr") //Closest dùng để tìm phần tử cha gần nhất với yêu cầu
+                                        .querySelector("input[name='position']").value;
+                    ids.push(`${id}-${position}`) // Truyền vào controller id và và vị trí thay đổi
+                }
+                else {
+                    ids.push(id); // Truyền vào controller id để xóa hoặc cập nhật
+                }
+            });
+            inputIds.value = ids.join(", ");
+            FormChange.submit();
         }
         else {
             alert("Vui lòng chọn ít nhất một ô!");
@@ -126,3 +126,18 @@ if (FormChange) {
     })
 }
 // End Form
+
+// Show Alert
+const ShowAlert = document.querySelector("[show-alert]");
+if (ShowAlert) {
+    const time = parseInt(ShowAlert.getAttribute("data-time"));
+    const CloseAlert = ShowAlert.querySelector("[close-alert]");
+    setTimeout(() => {
+        ShowAlert.classList.add("hidden-alert");
+    }, time);
+
+    CloseAlert.addEventListener("click", () => {
+        ShowAlert.classList.add("hidden-alert");
+    });
+}
+// End Alert

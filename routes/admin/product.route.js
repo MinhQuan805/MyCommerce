@@ -10,4 +10,6 @@ router.patch("/change-multi", controller.changeMulti);
 
 router.delete("/form-delete/:id", controller.deleteItem);
 
+router.get("/create", controller.create);
+
 module.exports = router;

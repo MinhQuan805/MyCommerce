@@ -3,22 +3,32 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert-success.pug
 block main
+  +alert-success("5000")
+    
   h1 Danh sách sản phẩm
   .card.mb-3
     .card-header Bộ lọc và tìm kiếm 
     .card-body 
       .row
         .col-6
+        
           +filter-status(filterStatus)
         .col-6
           +search(keyword)
-    .card-
   .card.mb-3
     .card-header Danh Sách Sản Phẩm
       .card-body
         //- Thay đổi trạng thái nhiều sản phầm
-        +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+        .row
+          .col-4
+            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+          .col-4 
+            a(
+              href=`${prefixAdmin}/products/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
         table(class="table table-hover table-sm" checkbox-multi )
           thead
             tr
