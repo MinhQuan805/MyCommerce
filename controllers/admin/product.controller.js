@@ -132,6 +132,11 @@ module.exports.createProduct = async (req, res) => {
     else {
         req.body.position = parseInt(req.body.position);
     }
+
+    // Thêm ảnh vào
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+
+    // Thêm dữ liệu vào database
     const newProduct = new Product(req.body);
     await newProduct.save();
 
