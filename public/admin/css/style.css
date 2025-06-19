@@ -65,3 +65,17 @@
 }
 
 /* End Show Alert */
+
+/* Image Preview */
+.image-preview {
+    width: 200px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.image-preview[src=""] {
+    display: none;
+}
+/* End Image Preview */

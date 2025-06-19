@@ -22,12 +22,14 @@ block main
     div(class="form-group mt-2")
       label(for="stock") Số lượng
       input(class="form-control" type="number", 
-            id="stock", name="stock", value="0", min="0")
+            id="stock", name="stock", value="0", min="0"
+            upload-image-input)
     
-    div(class="form-group mt-2")
+    div(class="form-group mt-2" style="width: 400px" upload-image)
       label(for="thumbnail") Ảnh
       input(class="form-control" type="file",   
-            id="thumbnail", name="thumbnail", accept="image/*")
+            id="thumbnail", name="thumbnail", accept="image/*" upload-image-input)
+      img(src="" class="image-preview" upload-image-preview)
     
     div(class="form-group mt-2")
       label(for="position") Vị trí
