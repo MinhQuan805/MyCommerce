@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require('multer'); // Upload ảnh vào
 const storageMulter = require('../../helpers/storageMulter');
+const validate = require('../../validates/admin/product.validate');
 const upload = multer({ storage: storageMulter() });
 
 const router = express.Router();
@@ -18,6 +19,13 @@ router.get("/create", controller.create);
 
 router.post("/create",
         upload.single('thumbnail'), // Truyền ảnh vào bằng req.file
+        validate.createProduct,
         controller.createProduct);
 
+router.get("/edit/:id", controller.edit);
+
+router.patch("/edit/:id", 
+        upload.single('thumbnail'),
+        validate.createProduct,
+        controller.editProduct);
 module.exports = router;

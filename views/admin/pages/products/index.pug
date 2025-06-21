@@ -3,17 +3,16 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
-include ../../mixins/alert-success.pug
+include ../../mixins/alert.pug
 block main
   +alert-success("5000")
-    
+  +alert-error("3000")
   h1 Danh sách sản phẩm
   .card.mb-3
     .card-header Bộ lọc và tìm kiếm 
     .card-body 
       .row
         .col-6
-        
           +filter-status(filterStatus)
         .col-6
           +search(keyword)
@@ -77,7 +76,8 @@ block main
                       button-change-status
                       class="badge text-bg-danger") Dừng Hoạt động
                 td 
-                  button(class="btn btn-warning btn-sm me-2") Sửa
+                  a(href=`${prefixAdmin}/products/edit/${item.id}`
+                    class="btn btn-warning btn-sm me-2") Sửa
                   button(class="btn btn-danger btn-sm ms-1" data-id=item.id button-delete-item) Xóa
   +pagination(pagination)
   
