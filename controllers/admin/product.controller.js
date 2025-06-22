@@ -146,17 +146,17 @@ module.exports.createProduct = async (req, res) => {
 
 // [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
+    const id = req.params.id;
     try {
         let find = {
             deleted: false,
-            _id: req.params.id,
+            _id: id,
         };
         const product = await Product.findOne(find);
-        const id = req.params.id;
-            res.render(`admin/pages/products/edit`, 
-                    {pageTitle: "Chỉnh sửa sản phẩm",
-                    product: product,
-            });
+        res.render(`admin/pages/products/edit`, 
+                {pageTitle: "Chỉnh sửa sản phẩm",
+                product: product,
+        });
     }
     catch (error) {
         req.flash("error", "Lỗi đường dẫn không kết nối được!")
@@ -164,7 +164,7 @@ module.exports.edit = async (req, res) => {
     }
 }
 
-// [PATCH] /admin/products/create
+// [PATCH] /admin/products/edit/:id
 module.exports.editProduct = async (req, res) => {
     const id = req.params.id;
     req.body.price = parseInt(req.body.price);
@@ -186,4 +186,23 @@ module.exports.editProduct = async (req, res) => {
         req.flash("error", "Cập nhật thất bại!");
     }
     res.redirect(`${systemConfig.prefixAdmin}/products`);
+}
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    try {
+        let find = {
+            deleted: false,
+            _id: id,
+        };
+        const product = await Product.findOne(find);
+        product.price = product.price.toFixed(0);
+        res.render(`admin/pages/products/detail`, {pageTitle: "Chi tiết sản phẩm",
+                product: product});
+    }
+    catch (error) {
+        req.flash("error", "Không thể xem sản phẩm")
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
+    }
 }
