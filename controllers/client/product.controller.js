@@ -13,3 +13,22 @@ module.exports.index = async (req, res) => {
         products: products
     });
 }
+
+// [GET] /client/products/:slug
+module.exports.detail = async (req, res) => {
+    try {
+        let find = {
+            deleted: false,
+            slug: req.params.slug,
+            status: "active",
+        };
+        const product = await Product.findOne(find);
+        product.price = product.price.toFixed(0);
+        res.render(`client/pages/products/detail`, {pageTitle: product.title,
+                product: product});
+    }
+    catch (error) {
+        req.flash("error", "Không thể xem sản phẩm")
+        res.redirect(`/products`)
+    }
+}

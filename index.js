@@ -14,10 +14,10 @@ const route = require("./routes/client/index.route");
 
 const systemConfig = require("./config/system");
 
-app.set("views", "./views");
+app.set("views", `${_dirname}/views`);
 app.set("view engine", "pug");
 
-app.use(express.static("public"));
+app.use(express.static(`${_dirname}/public`));
 
 // Method Override
 app.use(methodOverride('_method'));
