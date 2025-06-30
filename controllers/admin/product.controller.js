@@ -34,10 +34,17 @@ module.exports.index = async (req, res) => {
     const countProducts = await Product.countDocuments(find);
     paginationObject = paginationHelper(paginationObject, req.query, countProducts);
     
+    // Sort theo tùy chọn
+    let sort = {};
+
+    if (req.query.sortkey && req.query.sortvalue) {
+        sort[req.query.sortkey] = req.query.sortvalue;
+    }
+    else {
+        sort.position = "desc";
+    }
     // Chạy và truyền dữ liệu
-    const products = await Product.find(find)
-                                .sort({position: "desc"}) // Sort theo vị trí
-                                .limit(paginationObject.limitItem).skip(paginationObject.skip);
+    const products = await Product.find(find).limit(paginationObject.limitItem).sort(sort).skip(paginationObject.skip);
     products.forEach(item => {
         item.price = item.price.toFixed(0);
     });
@@ -65,9 +72,9 @@ module.exports.changeStatus = async (req, res) => {
 
 // [PATCH] /admin/products/change-multi
 module.exports.changeMulti = async (req, res) => {
+    console.log(req.body);
     const type = req.body.type;
     const ids = req.body.ids.split(', ');
-
     switch (type) {
         case "active":
             await Product.updateMany({ _id: { $in: ids }}, { status: "active"});
@@ -168,11 +175,6 @@ module.exports.editProduct = async (req, res) => {
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
     req.body.position = parseInt(req.body.position);
-
-    // Thêm ảnh vào
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
     const up = req.body;
     // Thêm dữ liệu vào database
     try {
