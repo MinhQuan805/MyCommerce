@@ -1,5 +1,5 @@
 ## 🔧 Quá Trình Phát Triển
 
-Dự án hiện đang trong giai đoạn phát triển. Bạn có thể xem bản nháp giao diện quản trị sản phẩm tại đường dẫn sau:
+Dự án hiện đang trong giai đoạn phát triển
 
-👉 Xem bản nháp sản phẩm: (https://quanshop.vercel.app/admin/products)
+👉 Bạn có thể xem bản nháp sản phẩm: [Demo](https://quanshop.vercel.app/admin/products)
