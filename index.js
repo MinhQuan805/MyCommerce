@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 var flash = require('express-flash');
-
+var path = require('path');
 require("dotenv").config();
 const port = process.env.PORT;
 
@@ -32,6 +32,12 @@ app.use(cookieParser('MyCommerce'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 // End Flash
+
+// TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
+// End TinyMCE
+
 
 //Routes
 route(app);

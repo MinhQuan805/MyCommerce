@@ -1,5 +1,5 @@
 const express = require("express");
-const multer = require('multer'); // Upload ảnh vào
+const multer = require('multer');
 const storageMulter = require('../../helpers/storageMulter');
 const validate = require('../../validates/admin/product.validate');
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 const uploadCloud = require('../../middleware/admin/uploadCloud.middleware');
 const upload = multer();
 
-const controller = require("../../controllers/admin/product.controller");
+const controller = require("../../controllers/admin/product-category.controller");
 
 router.get("/", controller.index);
 
@@ -20,18 +20,18 @@ router.delete("/form-delete/:id", controller.deleteItem);
 router.get("/create", controller.create);
 
 router.post("/create",
-	upload.single('thumbnail'), // Truyền ảnh vào bằng req.file
-	uploadCloud.upload,
-	validate.createPost,
-	controller.createPost
+        upload.single('thumbnail'),
+        uploadCloud.upload,
+        validate.createPost,
+        controller.createPost
 );
 
 
 router.patch("/edit/:id", 
-	upload.single('thumbnail'),
-	uploadCloud.upload,
-	validate.createPost,
-	controller.editPost
+        upload.single('thumbnail'),
+        uploadCloud.upload,
+        validate.createPost,
+        controller.editPost
 );
 
 router.get("/edit/:id", controller.edit);

@@ -23,7 +23,7 @@ block main
 
   if (product.status)
     div(class="mb-4")
-      span Trang thái: 
+      span Trạng thái: 
       if (product.status === "active")
         span(class="badge badge-success") Hoạt động
       else
@@ -33,7 +33,7 @@ block main
     div(class="mb-4") Vị trí: <b>#{product.position}</b>
 
   if (product.description)
-    div(class="mb-4") #{product.description}
+    div(class="mb-4") !{product.description}
   
   a(href=`${prefixAdmin}/products/edit/${product.id}`
     class="btn btn-warning m-2") Sửa
