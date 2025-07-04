@@ -5,7 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
-
+include ../../mixins/table-tree.pug
 block main
   +alert-success("5000")
   +alert-error("3000")
@@ -30,6 +30,7 @@ block main
       .card-body
         .row
           .col-8
+            +form-change-multi(`${prefixAdmin}/product-category/change-multi?_method=PATCH`)
           .col-4 
             a(
               href=`${prefixAdmin}/product-category/create`
@@ -47,44 +48,7 @@ block main
               th Trạng thái
               th Hành động
           tbody
-            each item, index in records
-              tr
-                td
-                  input(
-                    type="checkbox"
-                    name="id"
-                    value=item.id
-                  )
-                td #{index + 1}
-                td
-                  img(
-                    src=item.thumbnail
-                    alt=item.title
-                    width="100px"
-                    height="auto"
-                  )
-                td #{item.title} 
-                td
-                  input(type="number" class="form-control" style="width: 60px" name="position" value=item.position)
-                td
-                  if (item.status == "active")
-                    a(href="javascript:;"
-                      data-status="active"
-                      data-id=item.id
-                      button-change-status
-                      class="badge text-bg-success") Hoạt động
-                  else 
-                    a(href="javascript:;"
-                      data-status="inactive"
-                      data-id=item.id
-                      button-change-status
-                      class="badge text-bg-danger") Dừng Hoạt động
-                td
-                  a(href=`${prefixAdmin}/product-category/detail/${item.id}`
-                    class="btn btn-secondary btn-sm me-2") Chi tiết
-                  a(href=`${prefixAdmin}/product-category/edit/${item.id}`
-                    class="btn btn-warning btn-sm me-2") Sửa
-                  button(class="btn btn-danger btn-sm ms-1" data-id=item.id button-delete-item) Xóa
+            +table-tree(records)
   form(
     action=""
     method="POST"

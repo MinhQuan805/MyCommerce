@@ -13,22 +13,6 @@ block main
       label(for="desc") Mô tả
       textarea(class="form-control text-editor" id="desc", name="description", value=product.description rows="5") #{product.description}
     
-    div(class="form-group mt-2")
-      label(for="price") Giá
-      input(class="form-control" type="number", 
-            id="price", name="price", value=product.price, min="0")
-    
-    div(class="form-group mt-2")
-      label(for="discount") % Giảm giá
-      input(class="form-control" type="number", 
-            id="discount", name="discountPercentage", value=product.discountPercentage, min="0")
-
-    div(class="form-group mt-2")
-      label(for="stock") Số lượng
-      input(class="form-control" type="number", 
-            id="stock", name="stock", value=product.stock, min="0"
-            upload-image-input)
-    
     div(class="form-group mt-2" style="width: 400px" upload-image)
       label(for="thumbnail") Ảnh
       input(class="form-control" type="file",   
@@ -54,5 +38,5 @@ block main
       button(
         type="submit"
         class="btn btn-primary"
-      ) Cập nhật sản phẩm
+      ) Cập nhật danh mục
     script(src="/admin/js/product.js")

@@ -5,11 +5,11 @@ const systemConfig = require("../../config/system");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
-const ProductController = require("./baseproduct.controller");
+
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-    //Nút tìm kiếm trạng thái
+    // Nút tìm kiếm trạng thái
     const filterStatus = filterStatusHelper(req.query);
 
     let find = {
@@ -73,6 +73,7 @@ module.exports.changeStatus = async (req, res) => {
 
 // [PATCH] /admin/products/change-multi
 module.exports.changeMulti = async (req, res) => {
+    console.log(req.body);
     const type = req.body.type;
     const ids = req.body.ids.split(', ');
     switch (type) {
