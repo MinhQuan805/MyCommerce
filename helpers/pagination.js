@@ -1,4 +1,4 @@
-// Chuyển trang
+    // Chuyển trang
 module.exports = (paginationObject, query, countProducts) => {
     if (query.page) {
         paginationObject.currentPage = parseInt(query.page);

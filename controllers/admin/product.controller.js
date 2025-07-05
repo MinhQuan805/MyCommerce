@@ -34,7 +34,6 @@ module.exports.index = async (req, res) => {
     };
     const countProducts = await Product.countDocuments(find);
     paginationObject = paginationHelper(paginationObject, req.query, countProducts);
-    
     // Sort theo tùy chọn
     let sort = {};
 

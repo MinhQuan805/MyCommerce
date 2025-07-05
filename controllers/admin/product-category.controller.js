@@ -65,7 +65,8 @@ module.exports.changeMulti = async (req, res) => {
             req.flash("success", `Cập nhật trạng thái thành công ${ids.length} danh mục!`);
             break;
         case "delete-all":
-            await CategoryProduct.updateMany({ _id: { $in: ids }}, { deleted: true, deletedAt: new Date() });
+            await CategoryProduct.deleteMany({ _id: { $in: ids } });
+            //await CategoryProduct.updateMany({ _id: { $in: ids }}, { deleted: true, deletedAt: new Date() });
             req.flash("success", `Xóa thành công ${ids.length} danh mục!`);
             break;
         case "change-position":
@@ -89,8 +90,10 @@ module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
 
     // Xóa cứng
-    // await Product.deleteOne({ _id: id });
-    await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
+    await CategoryProduct.deleteOne({ _id: id });
+
+    //Xóa mềm
+    //await CategoryProduct.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
     req.flash("success", `Xóa thành công!`);
     // Quay về trang trước
     backURL=req.header('Referer') || '/'
@@ -120,7 +123,7 @@ module.exports.createPost = async (req, res) => {
     else {
         req.body.position = parseInt(req.body.position);
     }
-    
+    console.log(req.body);
     // Thêm dữ liệu vào database
     const records = new CategoryProduct(req.body);
     await records.save();
@@ -136,10 +139,17 @@ module.exports.edit = async (req, res) => {
             deleted: false,
             _id: id,
         };
-        const product = await CategoryProduct.findOne(find);
+        const data = await CategoryProduct.findOne(find);
+        
+        const records = await CategoryProduct.find({
+            deleted: false,
+        });
+
+        const newRecords = CreateTreeHelper(records);
         res.render(`admin/pages/product-category/edit`, 
-                {pageTitle: "Chỉnh sửa danh mục",
-                product: product,
+            {pageTitle: "Chỉnh sửa danh mục sản phẩm",
+            data: data,
+            records: newRecords,
         });
     }
     catch (error) {
@@ -153,6 +163,7 @@ module.exports.editPost = async (req, res) => {
     const id = req.params.id;
     req.body.position = parseInt(req.body.position);
     // Thêm dữ liệu vào database
+    console.log(req.body);
     try {
         await CategoryProduct.updateOne({ _id: id }, req.body);
         req.flash("success", "Cập nhật thành công danh mục! ");
@@ -171,9 +182,9 @@ module.exports.detail = async (req, res) => {
             deleted: false,
             _id: id,
         };
-        const product = await CategoryProduct.findOne(find);
+        const data = await CategoryProduct.findOne(find);
         res.render(`admin/pages/product-category/detail`, {pageTitle: "Chi tiết danh mục",
-                product: product});
+                data: data});
     }
     catch (error) {
         req.flash("error", "Không thể xem danh mục")
