@@ -65,8 +65,8 @@ module.exports.changeMulti = async (req, res) => {
             req.flash("success", `Cập nhật trạng thái thành công ${ids.length} danh mục!`);
             break;
         case "delete-all":
-            await CategoryProduct.deleteMany({ _id: { $in: ids } });
-            //await CategoryProduct.updateMany({ _id: { $in: ids }}, { deleted: true, deletedAt: new Date() });
+            //await CategoryProduct.deleteMany({ _id: { $in: ids } });
+            await CategoryProduct.updateMany({ _id: { $in: ids }}, { deleted: true, deletedAt: new Date() });
             req.flash("success", `Xóa thành công ${ids.length} danh mục!`);
             break;
         case "change-position":
@@ -163,7 +163,6 @@ module.exports.editPost = async (req, res) => {
     const id = req.params.id;
     req.body.position = parseInt(req.body.position);
     // Thêm dữ liệu vào database
-    console.log(req.body);
     try {
         await CategoryProduct.updateOne({ _id: id }, req.body);
         req.flash("success", "Cập nhật thành công danh mục! ");

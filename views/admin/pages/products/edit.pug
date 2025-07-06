@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/category-tree.pug
 block main
   +alert-error(5000)
   h1(class="mb-4") Chỉnh sửa sản phẩm
@@ -8,6 +9,12 @@ block main
     div(class="form-group mt-2")
       label(for="title") Tiêu đề
       input(class="form-control" type="text", id="title", name="title", value=product.title, required)
+    div(class="form-group mt-2")
+      label(for="product_category_id") Danh mục
+      select(class="form-control" id="product_category_id" name="product_category_id")
+        option(value="") -- Chọn danh mục --
+        if(product)
+          +category-tree(category, product.product_category_id)
 
     div(class="form-group mt-2")
       label(for="desc") Mô tả

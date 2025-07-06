@@ -4,8 +4,6 @@ mixin category-tree(records, parent = "", level = 1)
     option(
       value=item.id
       selected=(item.id == parent)
-      data-test1 = item.id 
-      data-test2 = parent
     ) #{prefix} #{ item.title}
       if item.children && item.children.length > 0
         +category-tree(item.children, parent, level + 1)
