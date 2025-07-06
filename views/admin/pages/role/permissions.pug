@@ -18,6 +18,7 @@ block main
           each item in records 
             th(class="text-center") #{item.title}
       tbody
+      -// Danh mục
         tr
           td(colspan="4") Danh mục sản phẩm
         tr(data-name="id" class="d-none")
@@ -49,6 +50,63 @@ block main
           each item in records 
             td(class="text-center")
               input(type="checkbox")
+        
+        -// Sản phẩm
+        tr
+          td(colspan="4") Sản phẩm
+
+        tr(data-name="products_view")
+          td Xem
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="products_create")
+          td Thêm mới
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="products_edit")
+          td Chỉnh sửa
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="products_delete")
+          td Xóa
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+        -// Nhóm quyền
+        tr
+          td(colspan="4") Sản phẩm
+
+        tr(data-name="permission_view")
+          td Xem
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="permission_create")
+          td Thêm mới
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="permission_edit")
+          td Chỉnh sửa
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+        tr(data-name="permission_delete")
+          td Xóa
+          each item in records 
+            td(class="text-center")
+              input(type="checkbox")
+
+
     form(id="form-change-permissions" method="POST" action=`${prefixAdmin}/role/permissions?_method=PATCH`)
       div(class="form-group d-none")
         input(type="text" class="form-control" name="permissions")  

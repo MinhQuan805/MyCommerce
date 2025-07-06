@@ -25,9 +25,9 @@ block main
     div(class="mb-4")
       span Trạng thái: 
       if (product.status === "active")
-        span(class="badge badge-success") Hoạt động
+        span(class="badge bg-success") Hoạt động
       else
-        span(class="badge badge-danger") Dừng hoạt động
+        span(class="badge bg-danger") Dừng hoạt động
 
   if (product.position)
     div(class="mb-4") Vị trí: <b>#{product.position}</b>
