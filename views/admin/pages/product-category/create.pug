@@ -3,52 +3,50 @@ include ../../mixins/alert.pug
 include ../../mixins/category-tree.pug
 block main
   +alert-error(5000)
-  h1(class="mb-4") Thêm mới danh mục sản phẩm
-  form(action=`${prefixAdmin}/product-category/create`, id="form-create-product", method="POST" enctype="multipart/form-data")
-    div(class="form-group mt-2")
-      label(for="title") Tiêu đề
-      input(class="form-control" type="text", id="title", name="title", required)
+  if (role.permissions.includes("products-category_create"))
+    h1(class="mb-4") Thêm mới danh mục sản phẩm
+    form(action=`${prefixAdmin}/product-category/create`, id="form-create-product", method="POST" enctype="multipart/form-data")
+      div(class="form-group mt-2")
+        label(for="title") Tiêu đề
+        input(class="form-control" type="text", id="title", name="title", required)
 
-    div(class="form-group mt-2")
-      label(for="parent_id") Danh mục cha
-      select(class="form-control" id="parent_id" name="parent_id")
-        option(value="") -- Chọn danh mục cha --
-        if(records)
-          +category-tree(records)
+      div(class="form-group mt-2")
+        label(for="parent_id") Danh mục cha
+        select(class="form-control" id="parent_id" name="parent_id")
+          option(value="") -- Chọn danh mục cha --
+          if(records)
+            +category-tree(records)
 
-    div(class="form-group mt-2")
-      label(for="desc") Mô tả
-      textarea(class="form-control text-editor" id="desc", name="description", rows="5")
-    
-    div(class="form-group mt-2" style="width: 400px" upload-image)
-      label(for="thumbnail") Ảnh
-      input(class="form-control" type="file",   
-            id="thumbnail", name="thumbnail", accept="image/*" upload-image-input)
-      img(src="" class="image-preview" upload-image-preview)
-    
-    div(class="form-group mt-2")
-      label(for="position") Vị trí
-      input(class="form-control" type="number", 
-            id="position", name="position", placeholder="Tự động tăng", min="1")
-    
+      div(class="form-group mt-2")
+        label(for="desc") Mô tả
+        textarea(class="form-control text-editor" id="desc", name="description", rows="5")
+      
+      div(class="form-group mt-2" style="width: 400px" upload-image)
+        label(for="thumbnail") Ảnh
+        input(class="form-control" type="file",   
+              id="thumbnail", name="thumbnail", accept="image/*" upload-image-input)
+        img(src="" class="image-preview" upload-image-preview)
+      
+      div(class="form-group mt-2")
+        label(for="position") Vị trí
+        input(class="form-control" type="number", 
+              id="position", name="position", placeholder="Tự động tăng", min="1")
+      
 
-    div(class="form-group form-check form-check-inline mt-2")
-      input(class="form-check-input" type="radio", 
-            id="statusActive", name="status", 
-            value="active", checked)
-      label(for="statusActive" class="form-check-label") Hoạt động
-    div(class="form-group form-check form-check-inline mt-2")
-      input(class="form-check-input" type="radio", 
-            id="statusInActive", name="status", 
-            value="inactive", checked)
-      label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group form-check form-check-inline mt-2")
+        input(class="form-check-input" type="radio", 
+              id="statusActive", name="status", 
+              value="active", checked)
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline mt-2")
+        input(class="form-check-input" type="radio", 
+              id="statusInActive", name="status", 
+              value="inactive", checked)
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
 
-    div(class="form-group mt-2")
-      button(
-        type="submit"
-        class="btn btn-primary"
-      ) Tạo mới
-    script(src="/admin/js/product-category.js")
-
-
-  
+      div(class="form-group mt-2")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Tạo mới
+      script(src="/admin/js/product-category.js")

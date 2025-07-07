@@ -122,7 +122,6 @@ module.exports.createPost = async (req, res) => {
     else {
         req.body.position = parseInt(req.body.position);
     }
-    console.log(req.body);
     // Thêm dữ liệu vào database
     const records = new CategoryProduct(req.body);
     await records.save();

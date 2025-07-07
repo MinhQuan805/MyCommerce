@@ -22,7 +22,7 @@ module.exports.loginAuth = async (req, res) => {
     });
 
     if (!user) {
-        req.flash("error", "Email chưa được đăng ký")
+        req.flash("error", "Email không tồn tại")
         backURL=req.header('Referer') || '/'
         res.redirect(backURL);
         return;

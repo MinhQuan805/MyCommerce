@@ -19,24 +19,28 @@ mixin table-tree(records, level = 1)
       td #{prefix} #{item.title} 
       td
         input(type="number" class="form-control" style="width: 60px" name="position" value=item.position)
+      if (role.permissions.includes("products-category_edit"))
+        td
+          if (item.status == "active")
+            a(href="javascript:;"
+              data-status="active"
+              data-id=item.id
+              button-change-status
+              class="badge text-bg-success") Hoạt động
+          else 
+            a(href="javascript:;"
+              data-status="inactive"
+              data-id=item.id
+              button-change-status
+              class="badge text-bg-danger") Dừng Hoạt động
       td
-        if (item.status == "active")
-          a(href="javascript:;"
-            data-status="active"
-            data-id=item.id
-            button-change-status
-            class="badge text-bg-success") Hoạt động
-        else 
-          a(href="javascript:;"
-            data-status="inactive"
-            data-id=item.id
-            button-change-status
-            class="badge text-bg-danger") Dừng Hoạt động
-      td
-        a(href=`${prefixAdmin}/product-category/detail/${item.id}`
-          class="btn btn-secondary btn-sm me-2") Chi tiết
-        a(href=`${prefixAdmin}/product-category/edit/${item.id}`
-          class="btn btn-warning btn-sm me-2") Sửa
-        button(class="btn btn-danger btn-sm ms-1" data-id=item.id button-delete-item) Xóa
+        if (role.permissions.includes("products-category_detail"))
+          a(href=`${prefixAdmin}/product-category/detail/${item.id}`
+            class="btn btn-secondary btn-sm me-2") Chi tiết
+        if (role.permissions.includes("products-category_edit"))
+          a(href=`${prefixAdmin}/product-category/edit/${item.id}`
+            class="btn btn-warning btn-sm me-2") Sửa
+        if (role.permissions.includes("products-category_delete"))
+          button(class="btn btn-danger btn-sm ms-1" data-id=item.id button-delete-item) Xóa
     if item.children && item.children.length > 0
       +table-tree(item.children, level + 1)

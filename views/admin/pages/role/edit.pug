@@ -3,23 +3,21 @@ include ../../mixins/alert.pug
 
 block main
   +alert-error(5000)
-  h1(class="mb-4") Chỉnh sửa nhóm quyền
-  form(action=`${prefixAdmin}/role/edit/${role._id}?_method=PATCH`, id="form-create-product", method="POST")
-    div(class="form-group mt-2")
-      label(for="title") Tiêu đề
-      input(class="form-control" type="text", id="title" value=role.title name="title", required)
+  if (role.permissions.includes("role_edit"))
+    h1(class="mb-4") Chỉnh sửa nhóm quyền
+    form(action=`${prefixAdmin}/role/edit/${role._id}?_method=PATCH`, id="form-create-product", method="POST")
+      div(class="form-group mt-2")
+        label(for="title") Tiêu đề
+        input(class="form-control" type="text", id="title" value=role.title name="title", required)
 
 
-    div(class="form-group mt-2")
-      label(for="desc") Mô tả ngắn
-      textarea(class="form-control text-editor" id="desc", name="description", rows="5") #{role.description}
-    
-    div(class="form-group mt-2")
-      button(
-        type="submit"
-        class="btn btn-primary"
-      ) Cập nhật
-    script(src="/admin/js/product.js")
-
-
-  
+      div(class="form-group mt-2")
+        label(for="desc") Mô tả ngắn
+        textarea(class="form-control text-editor" id="desc", name="description", rows="5") #{role.description}
+      
+      div(class="form-group mt-2")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật
+      script(src="/admin/js/product.js")

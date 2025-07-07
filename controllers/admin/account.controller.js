@@ -74,6 +74,7 @@ module.exports.edit = async (req, res) => {
 
 // [POST] /admin/account/edit/:id
 module.exports.editPost = async (req, res) => {
+    console.log(req.body);
     const id = req.params.id;
     const emailExist = await Account.findOne({
         _id: { $ne: id }, // Tìm các email khác với email hiện tại 

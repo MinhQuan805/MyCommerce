@@ -3,52 +3,50 @@ include ../../mixins/alert.pug
 include ../../mixins/category-tree.pug
 block main
   +alert-error(5000)
-  h1(class="mb-4") Chỉnh sửa danh mục sản phẩm
-  form(action=`${prefixAdmin}/product-category/edit/${data.id}?_method=PATCH`, id="form-create-product", method="POST" enctype="multipart/form-data")
-    div(class="form-group mt-2")
-      label(for="title") Tiêu đề
-      input(class="form-control" type="text", id="title", name="title", value=data.title, required)
+  if (role.permissions.includes("products-category_edit"))
+    h1(class="mb-4") Chỉnh sửa danh mục sản phẩm
+    form(action=`${prefixAdmin}/product-category/edit/${data.id}?_method=PATCH`, id="form-create-product", method="POST" enctype="multipart/form-data")
+      div(class="form-group mt-2")
+        label(for="title") Tiêu đề
+        input(class="form-control" type="text", id="title", name="title", value=data.title, required)
 
-    div(class="form-group mt-2")
-      label(for="parent_id") Danh mục cha
-      select(class="form-control" id="parent_id" name="parent_id")
-        option(value="") -- Chọn danh mục cha --
-        if(records)
-          +category-tree(records, data.parent_id)
+      div(class="form-group mt-2")
+        label(for="parent_id") Danh mục cha
+        select(class="form-control" id="parent_id" name="parent_id")
+          option(value="") -- Chọn danh mục cha --
+          if(records)
+            +category-tree(records, data.parent_id)
 
-    div(class="form-group mt-2")
-      label(for="desc") Mô tả
-      textarea(class="form-control text-editor" id="desc", name="description", rows="5") #{data.description}
-    
-    div(class="form-group mt-2" style="width: 400px" upload-image)
-      label(for="thumbnail") Ảnh
-      input(class="form-control" type="file",   
-            id="thumbnail", name="thumbnail", accept="image/*" upload-image-input)
-      img(src=data.thumbnail class="image-preview" upload-image-preview)
-    
-    div(class="form-group mt-2")
-      label(for="position") Vị trí
-      input(class="form-control" type="number", 
-            id="position", name="position", placeholder="Tự động tăng", value=data.position, min="1")
-    
+      div(class="form-group mt-2")
+        label(for="desc") Mô tả
+        textarea(class="form-control text-editor" id="desc", name="description", rows="5") #{data.description}
+      
+      div(class="form-group mt-2" style="width: 400px" upload-image)
+        label(for="thumbnail") Ảnh
+        input(class="form-control" type="file",   
+              id="thumbnail", name="thumbnail", accept="image/*" upload-image-input)
+        img(src=data.thumbnail class="image-preview" upload-image-preview)
+      
+      div(class="form-group mt-2")
+        label(for="position") Vị trí
+        input(class="form-control" type="number", 
+              id="position", name="position", placeholder="Tự động tăng", value=data.position, min="1")
+      
 
-    div(class="form-group form-check form-check-inline mt-2")
-      input(class="form-check-input" type="radio", 
-            id="statusActive", name="status", 
-            value="active", checked=(data.status == "active" ? true : false))
-      label(for="statusActive" class="form-check-label") Hoạt động
-    div(class="form-group form-check form-check-inline mt-2")
-      input(class="form-check-input" type="radio", 
-            id="statusInActive", name="status", 
-            value="inactive", checked=(data.status == "inactive" ? true : false))
-      label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group form-check form-check-inline mt-2")
+        input(class="form-check-input" type="radio", 
+              id="statusActive", name="status", 
+              value="active", checked=(data.status == "active" ? true : false))
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline mt-2")
+        input(class="form-check-input" type="radio", 
+              id="statusInActive", name="status", 
+              value="inactive", checked=(data.status == "inactive" ? true : false))
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
 
-    div(class="form-group mt-2")
-      button(
-        type="submit"
-        class="btn btn-primary"
-      ) Chỉnh sửa
-    script(src="/admin/js/product.js")
-
-
-  
+      div(class="form-group mt-2")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Chỉnh sửa
+  script(src="/admin/js/product.js")

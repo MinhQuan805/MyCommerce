@@ -2,32 +2,33 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main
   +alert-error(5000)
-  if (data.title)
-    h1(class="mb-4") #{data.title}
+  if (role.permissions.includes("products-category_detail"))
+    if (data.title)
+      h1(class="mb-4") #{data.title}
 
-  if (data.thumbnail)
-    div(class="mb-4")
-      img(
-        src=data.thumbnail
-        style="width: 300px"
-      )
+    if (data.thumbnail)
+      div(class="mb-4")
+        img(
+          src=data.thumbnail
+          style="width: 300px"
+        )
 
-  if (data.status)
-    div(class="mb-4")
-      span Trạng thái: 
-      if (data.status == "active")
-        span(class="badge bg-success") Hoạt động
-      else
-        span(class="badge bg-danger") Dừng hoạt động
+    if (data.status)
+      div(class="mb-4")
+        span Trạng thái: 
+        if (data.status == "active")
+          span(class="badge bg-success") Hoạt động
+        else
+          span(class="badge bg-danger") Dừng hoạt động
 
-  if (data.position)
-    div(class="mb-4") Vị trí: <b>#{data.position}</b>
+    if (data.position)
+      div(class="mb-4") Vị trí: <b>#{data.position}</b>
 
-  if (data.description)
-    div(class="mb-4") !{data.description}
-  
-  a(href=`${prefixAdmin}/product-category/edit/${data.id}`
-    class="btn btn-warning m-2") Sửa
-  a(href=`${prefixAdmin}/product-category`
-    class="btn btn-info m-2") Quay lại
+    if (data.description)
+      div(class="mb-4") !{data.description}
+    
+    a(href=`${prefixAdmin}/product-category/edit/${data.id}`
+      class="btn btn-warning m-2") Sửa
+    a(href=`${prefixAdmin}/product-category`
+      class="btn btn-info m-2") Quay lại
   script(src="/admin/js/product-category.js")
