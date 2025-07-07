@@ -1,0 +1,55 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error(5000)
+  h1(class="mb-4") #{pageTitle}
+  form(action=`${prefixAdmin}/account/create` method="POST" enctype="multipart/form-data")
+    div(class="form-group mt-2")
+      label(for="fullName") Họ và tên
+      input(class="form-control" type="text", id="fullName", name="fullName")
+
+    div(class="form-group mt-2")
+      label(for="email") Email
+      input(class="form-control" type="text", id="email", name="email")
+    
+    div(class="form-group mt-2")
+      label(for="password") Mật khẩu
+      input(class="form-control" type="password", id="password", name="password")
+    
+    div(class="form-group mt-2")
+      label(for="phone") Số điện thoại
+      input(class="form-control" type="text", id="phone", name="phone")
+    div(class="form-group mt-2")
+      label(for="role_id") Phân quyền
+      select(class="form-control" id="role_id" name="role_id")
+        option(disabled) -- Chọn nhóm quyền --
+        each role in roles
+          option(value=role.id) #{role.title}
+
+    div(class="form-group mt-2" style="width: 400px" upload-image)
+      label(for="avatar") Ảnh đại diện
+      input(class="form-control" type="file",   
+            id="avatar", name="avatar", accept="image/*" upload-image-input)
+      img(src="" class="image-preview" upload-image-preview)
+    
+    
+    div(class="form-group form-check form-check-inline mt-2")
+      input(class="form-check-input" type="radio", 
+            id="statusActive", name="status", 
+            value="active", checked)
+      label(for="statusActive" class="form-check-label") Hoạt động
+    div(class="form-group form-check form-check-inline mt-2")
+      input(class="form-check-input" type="radio", 
+            id="statusInActive", name="status", 
+            value="inactive")
+      label(for="statusInActive" class="form-check-label") Dừng hoạt động
+    div(class="form-group mt-2")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Tạo mới
+    script(src="/admin/js/account.js")
+
+
+  

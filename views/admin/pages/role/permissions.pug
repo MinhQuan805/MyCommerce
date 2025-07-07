@@ -14,13 +14,13 @@ block main
     )
       thead
         tr
-          th Tính năng 
+          th(class="fs-5") Tính năng 
           each item in records 
-            th(class="text-center") #{item.title}
+            th(class="text-center fs-5") #{item.title}
       tbody
       -// Danh mục
         tr
-          td(colspan="4") Danh mục sản phẩm
+          td(colspan="4" class="fw-bold") Danh mục sản phẩm
         tr(data-name="id" class="d-none")
           td
           each item in records 
@@ -53,7 +53,7 @@ block main
         
         -// Sản phẩm
         tr
-          td(colspan="4") Sản phẩm
+          td(colspan="4" class="fw-bold") Sản phẩm
 
         tr(data-name="products_view")
           td Xem
@@ -80,7 +80,7 @@ block main
               input(type="checkbox")
         -// Nhóm quyền
         tr
-          td(colspan="4") Sản phẩm
+          td(colspan="4" class="fw-bold") Nhóm quyền
 
         tr(data-name="permission_view")
           td Xem

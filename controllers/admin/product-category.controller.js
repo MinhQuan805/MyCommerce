@@ -1,4 +1,3 @@
-// [GET] /admin/product-category
 const CategoryProduct = require("../../models/product-category.model");
 
 const systemConfig = require("../../config/system");
