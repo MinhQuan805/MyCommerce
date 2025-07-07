@@ -27,7 +27,6 @@ if (tablePermission) {
             const formChangePermission = document.querySelector("#form-change-permissions");
             const inputPermissions = formChangePermission.querySelector("input[name='permissions']");
             inputPermissions.value = JSON.stringify(permission);
-            console.log(inputPermissions);
             formChangePermission.submit();
         }
     });
