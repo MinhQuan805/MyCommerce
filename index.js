@@ -4,6 +4,7 @@ var methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const moment = require('moment');
 var flash = require('express-flash');
 var path = require('path');
 require("dotenv").config();
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 // Flash
 app.use(cookieParser('MyCommerce'));

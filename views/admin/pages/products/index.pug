@@ -5,6 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 block main
   +alert-success("5000")
   +alert-error("3000")
@@ -52,6 +53,7 @@ block main
                 th Vị trí
                 if (role.permissions.includes("products_edit"))
                   th Trạng thái
+                th Người tạo
                 th Hành động
 
             tbody
@@ -90,6 +92,8 @@ block main
                           data-id=item.id
                           button-change-status
                           class="badge text-bg-danger") Dừng Hoạt động
+                  td 
+                    +moment(item)
                   td
                     if (role.permissions.includes("products_detail"))
                       a(href=`${prefixAdmin}/products/detail/${item.id}`

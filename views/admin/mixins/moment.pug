@@ -1,0 +1,4 @@
+mixin moment(item)
+  p #{item.fullName}
+  p #{moment(item.createdBy.createdAt).format("DD/MM/YYYY")}
+  p #{moment(item.createdBy.createdAt).format("hh:mm:ss")}
