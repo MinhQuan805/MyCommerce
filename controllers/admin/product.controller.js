@@ -225,7 +225,6 @@ module.exports.editPost = async (req, res) => {
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
     req.body.position = parseInt(req.body.position);
-    req.body.editBy = editBy;
     // Thêm dữ liệu vào database
     try {
         const updated = {
